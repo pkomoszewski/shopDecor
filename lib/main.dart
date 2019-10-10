@@ -17,7 +17,9 @@ class __MyappState extends State<_Myapp> {
   Widget build(BuildContext context) {
     return MaterialApp(
        title: "Shop Dector",
-       theme: ThemeData(primaryColor: Colors.white),
+       theme: ThemeData(primaryColor: Colors.blueAccent,
+       primaryColorDark: Colors.indigo[200],
+       accentColor: Colors.white),
        routes: { 
         '/': (ctx) => TabsScreen(),
         FavoriteScreen.routeName: (ctx) => FavoriteScreen(),
