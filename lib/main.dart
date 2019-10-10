@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:shopdecor/screens/tabs_screen.dart';
-import 'package:shopdecor/widgets/productitem.dart';
 import './screens/order_screen.dart';
 import './screens/favorite_screen.dart';
-import './screens/product_screen.dart';
+
 void main(){
   runApp(_Myapp());
 }
