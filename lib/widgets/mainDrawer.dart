@@ -28,11 +28,11 @@ class MainDrawer extends StatelessWidget {
                     fontSize: 36,
                     fontWeight: FontWeight.w700))),
         SizedBox(height: 25),
-        bulidListTitle("Box", Icons.shopping_basket,
+        bulidListTitle("Main", Icons.shopping_basket,
         (){
           Navigator.of(context).pushReplacementNamed('/');
         }),
-        bulidListTitle("favorite", Icons.favorite,(){
+        bulidListTitle("Favorite", Icons.favorite,(){
             Navigator.of(context).pushReplacementNamed(FavoriteScreen.routeName);
         })
       ],
