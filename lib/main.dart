@@ -29,7 +29,9 @@ class _MyappState extends State<_Myapp> {
           accentColor: Colors.white),
       home: TabsScreen(),
       routes: {
-       ProductDetalsScreen.routeName:(ctx)=>ProductDetalsScreen()
+       ProductDetalsScreen.routeName:(ctx)=>ProductDetalsScreen(),
+       FavoriteScreen.routeName:(ctx)=>FavoriteScreen(),
+       OrderScreen.routeName:(ctx)=>OrderScreen(),
       },
     ));
   }
