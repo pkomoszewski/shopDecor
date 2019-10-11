@@ -13,7 +13,17 @@ class ProductDetalsScreen extends StatelessWidget {
 final loadedProduct =Provider.of<Products>(context).findById(id);
     return Scaffold(
       appBar: AppBar(title: Text(loadedProduct.title)),
-      body: Column(),
-    );
+      body: Column(children: <Widget>[
+        ListTile(
+          leading: Icon(Icons.money_off),
+          title: Text(loadedProduct.title),
+          subtitle: Text(loadedProduct.description),
+          trailing: Text(loadedProduct.price.toString()),
+        )
+      ],
+       
+
+      
+    ));
   }
 }
