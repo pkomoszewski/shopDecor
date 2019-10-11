@@ -2,29 +2,35 @@ import 'package:flutter/material.dart';
 import 'package:shopdecor/screens/tabs_screen.dart';
 import './screens/order_screen.dart';
 import './screens/favorite_screen.dart';
+import './screens/product_detals_screen.dart';
+import './providers/products.dart';
+import 'package:provider/provider.dart';
 
-void main(){
+void main() {
   runApp(_Myapp());
 }
+
 class _Myapp extends StatefulWidget {
   _Myapp({Key key}) : super(key: key);
 
-  __MyappState createState() => __MyappState();
+  _MyappState createState() => _MyappState();
 }
 
-class __MyappState extends State<_Myapp> {
+class _MyappState extends State<_Myapp> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-       title: "Shop Dector",
-       theme: ThemeData(primaryColor: Colors.blueAccent,
-       primaryColorDark: Colors.indigo[200],
-       accentColor: Colors.white),
-       routes: { 
-        '/': (ctx) => TabsScreen(),
-        FavoriteScreen.routeName: (ctx) => FavoriteScreen(),
-        OrderScreen.routeName:(ctx)=> OrderScreen(),
+    return ChangeNotifierProvider(
+      builder:(ctx)=>Products(),
+        child: MaterialApp(
+      title: "Shop Dector",
+      theme: ThemeData(
+          primaryColor: Colors.blueAccent,
+          primaryColorDark: Colors.indigo[200],
+          accentColor: Colors.white),
+      home: TabsScreen(),
+      routes: {
+       ProductDetalsScreen.routeName:(ctx)=>ProductDetalsScreen()
       },
-    );
+    ));
   }
 }
