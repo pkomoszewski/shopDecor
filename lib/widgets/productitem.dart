@@ -1,43 +1,44 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../providers/product.dart';
 import '../screens/product_detals_screen.dart';
-
 class ProductItem extends StatelessWidget {
-  final String id;
-  final String title;
-  final String imageUrl;
-  ProductItem(this.id, this.title, this.imageUrl);
+  const ProductItem({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
+        final product=Provider.of<Product>(context);
+    return Container(
+      child: ClipRRect(
         borderRadius: BorderRadius.circular(10),
         child: GridTile(
           child: GestureDetector(
               onTap: () {
                 Navigator.of(context)
-                    .pushNamed(ProductDetalsScreen.routeName, arguments: id);
+                    .pushNamed(ProductDetalsScreen.routeName, arguments: product.id);
               },
               child: Image.network(
-                imageUrl,
+                product.imageUrl,
                 fit: BoxFit.cover,
               )),
           footer: GridTileBar(
             backgroundColor: Theme.of(context).primaryColorDark,
+            leading: IconButton(icon:
+                        Icon(Icons.favorite, color: Colors.red), onPressed: (){product.toogleFavorite();
+                        print(product.isfavorite);
+                        },),
             trailing: IconButton(
               icon: Icon(Icons.add_shopping_cart),
               color: Theme.of(context).accentColor,
               onPressed: () {},
             ),
-            leading: IconButton(
-              icon: Icon(Icons.favorite),
-              color: Theme.of(context).accentColor,
-              onPressed: () {},
-            ),
+           
             title: Text(
-              title,
-              style: TextStyle(color: Theme.of(context).accentColor),
+              product.title,
+              style: TextStyle(color: Theme.of(context).accentColor, fontSize: 15),
             ),
           ),
-        ));
+        )),
+    );
   }
 }

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import '../models/product.dart';
-class Products with ChangeNotifier{
+import './product.dart';
 
-  List<Product> _items =[Product(
+class Products  with ChangeNotifier{
+  List<Product> _items = [
+    Product(
       id: 'p1',
       title: 'Red Shirt',
       description: 'A red shirt - it is pretty red!',
@@ -33,17 +34,24 @@ class Products with ChangeNotifier{
       price: 49.99,
       imageUrl:
           'https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Cast-Iron-Pan.jpg/1024px-Cast-Iron-Pan.jpg',
-    ),];
+    ),
+  ];
+
+ 
 
   List<Product> get items {
-
     return [..._items];
   }
-  Product findById(String id){
-    return _items.firstWhere((items)=>items.id==id);
+
+
+  Product findById(String id) {
+    return _items.firstWhere((items) => items.id == id);
   }
 
-  void addProduct(){
+
+
+
+  void addProduct() {
     //_items.add(value);
     notifyListeners();
   }
