@@ -22,7 +22,7 @@ class _MyappState extends State<_Myapp> {
     return ChangeNotifierProvider.value(
       value:Products(),
         child: MaterialApp(
-      title: "Shop Dector",
+      title: "Shop Dector ",
       theme: ThemeData(
           primaryColor: Colors.blueAccent,
           primaryColorDark: Colors.indigo[200],
