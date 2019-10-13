@@ -19,8 +19,8 @@ class _Myapp extends StatefulWidget {
 class _MyappState extends State<_Myapp> {
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      builder:(ctx)=>Products(),
+    return ChangeNotifierProvider.value(
+      value:Products(),
         child: MaterialApp(
       title: "Shop Dector",
       theme: ThemeData(

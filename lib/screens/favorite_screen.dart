@@ -11,7 +11,7 @@ class FavoriteScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final producutsData = Provider.of<Products>(context);
-    final products = producutsData.items;
+    final favoriteProducts = producutsData.findFavorite();
 
     return Scaffold(
         drawer: MainDrawer(),
@@ -19,9 +19,14 @@ class FavoriteScreen extends StatelessWidget {
           title: Text("Favorite"),
         ),
         body: ListView.builder(
-            itemCount: products.length,
-            itemBuilder: (ctx, i) => ChangeNotifierProvider(builder: (c)=>products[i],
-            child: ListTileProduct(),
-            )));
+            itemCount: favoriteProducts.length,
+            itemBuilder: (ctx, i) => ListTileProduct(
+
+                    favoriteProducts[i].id,
+                    favoriteProducts[i].title,
+                    favoriteProducts[i].description,
+                    favoriteProducts[i].price
+                  ),
+                ));
   }
 }

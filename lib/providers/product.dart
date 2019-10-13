@@ -13,7 +13,8 @@ Product({
   @required this.title,
   @required this.description,
   @required this.price,
-  @required this.imageUrl
+  @required this.imageUrl,
+  this.isfavorite=false,
 });
 
 

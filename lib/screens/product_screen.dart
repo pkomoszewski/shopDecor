@@ -15,9 +15,10 @@ class ProductScreen extends StatelessWidget {
         padding: EdgeInsets.all(10.0),
       itemCount:products.length, 
     
-      itemBuilder: (ctx,i)=>ChangeNotifierProvider(
-        child: ProductItem(),
-        builder: (c)=>products[i],),
+      itemBuilder: (ctx,i)=>ChangeNotifierProvider.value(
+         value:products[i],
+        child: ProductItem()),
+       
       
       gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
       
