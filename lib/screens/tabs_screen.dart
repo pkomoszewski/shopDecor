@@ -4,6 +4,10 @@ import './favorite_screen.dart';
 import '../widgets/mainDrawer.dart';
 import '../screens/order_screen.dart';
 import '../screens/product_screen.dart';
+import 'package:provider/provider.dart';
+import '../providers/products.dart';
+
+enum FilterOptions { Favorites, All }
 
 class TabsScreen extends StatefulWidget {
   static const routeName = '/tabscreen';
@@ -11,16 +15,16 @@ class TabsScreen extends StatefulWidget {
 }
 
 class _TabsScreenState extends State<TabsScreen> {
+  var showFavorite = false;
   List<Map<String, Object>> _pages;
   @override
   void initState() {
     super.initState();
     _pages = [
-       {
-        'page': ProductScreen(),
+      {
+        'page': ProductScreen(showFavorite),
         'title': 'Products',
       },
-
       {
         'page': CategoryScreen(),
         'title': 'Category',
@@ -39,17 +43,45 @@ class _TabsScreenState extends State<TabsScreen> {
     });
   }
 
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: MainDrawer(),
       appBar: AppBar(
         title: Text(_pages[_selectedPageIndex]['title']),
         actions: <Widget>[
+          PopupMenuButton(
+            onSelected: (FilterOptions selected) {
+              if (selected == FilterOptions.Favorites) {
+                setState(() {
+                  showFavorite = true;
+                  _pages[0]['page'] = ProductScreen(showFavorite);
+                });
+              } else {
+                setState(() {
+                  showFavorite = false;
+                  _pages[0]['page'] = ProductScreen(showFavorite);
+                });
+              }
+              print(showFavorite);
+            },
+            icon: Icon(Icons.more_vert),
+            itemBuilder: (_) => [
+              PopupMenuItem(
+                  child: Text(
+                    "Show favorite only",
+                  ),
+                  value: FilterOptions.Favorites),
+              PopupMenuItem(
+                  child: Text(
+                    "Show all",
+                  ),
+                  value: FilterOptions.All)
+            ],
+          ),
           IconButton(
             icon: Icon(Icons.shopping_cart),
             onPressed: () {
-                Navigator.of(context).pushNamed(OrderScreen.routeName);
+              Navigator.of(context).pushNamed(OrderScreen.routeName);
             },
           ),
         ],
