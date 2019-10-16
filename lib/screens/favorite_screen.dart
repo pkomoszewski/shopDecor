@@ -19,12 +19,13 @@ class FavoriteScreen extends StatelessWidget {
           title: Text("Favorite"),
         ),
         body: ListView.builder(
-          itemCount: favoriteProducts.length,
-          itemBuilder: (ctx, i) => ListTileProduct(
-              favoriteProducts[i].id,
-              favoriteProducts[i].title,
-              favoriteProducts[i].description,
-              favoriteProducts[i].price),
-        ));
+            itemCount: favoriteProducts.length,
+            itemBuilder: (ctx, i) => ListTileProduct(
+                  favoriteProducts[i].id,
+                  favoriteProducts[i].title,
+                  favoriteProducts[i].description,
+                  favoriteProducts[i].price,
+                  favoriteProducts[i].toogleFavorite,
+                )));
   }
 }

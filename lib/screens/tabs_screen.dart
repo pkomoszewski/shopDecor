@@ -4,6 +4,9 @@ import './favorite_screen.dart';
 import '../widgets/mainDrawer.dart';
 import '../screens/order_screen.dart';
 import '../screens/product_screen.dart';
+import 'package:provider/provider.dart';
+import '../providers/cart.dart';
+import '../widgets/badge.dart';
 
 enum FilterOptions { Favorites, All }
 
@@ -76,12 +79,17 @@ class _TabsScreenState extends State<TabsScreen> {
                   value: FilterOptions.All)
             ],
           ),
-          IconButton(
-            icon: Icon(Icons.shopping_cart),
-            onPressed: () {
-              Navigator.of(context).pushNamed(OrderScreen.routeName);
-            },
-          ),
+          Consumer<Cart>(
+              builder: (_, cart, ch) => Badge(
+                    child: ch,
+                    value: cart.itemCount.toString(),
+                  ),
+              child: IconButton(
+                icon: Icon(Icons.shopping_cart),
+                onPressed: () {
+                  Navigator.of(context).pushNamed(OrderScreen.routeName);
+                },
+              )),
         ],
       ),
       body: _pages[_selectedPageIndex]['page'],
