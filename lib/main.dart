@@ -5,6 +5,7 @@ import './screens/favorite_screen.dart';
 import './screens/product_detals_screen.dart';
 import './providers/products.dart';
 import 'package:provider/provider.dart';
+import './providers/cart.dart';
 
 void main() {
   runApp(_Myapp());
@@ -19,20 +20,27 @@ class _Myapp extends StatefulWidget {
 class _MyappState extends State<_Myapp> {
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider.value(
-      value:Products(),
+    return MultiProvider(
+        providers: [
+          ChangeNotifierProvider.value(
+            value: Products(),
+          ),
+          ChangeNotifierProvider.value(
+            value: Cart(),
+          )
+        ],
         child: MaterialApp(
-      title: "Shop Dector ",
-      theme: ThemeData(
-          primaryColor: Colors.blueAccent,
-          primaryColorDark: Colors.indigo[200],
-          accentColor: Colors.white),
-      home: TabsScreen(),
-      routes: {
-       ProductDetalsScreen.routeName:(ctx)=>ProductDetalsScreen(),
-       FavoriteScreen.routeName:(ctx)=>FavoriteScreen(),
-       OrderScreen.routeName:(ctx)=>OrderScreen(),
-      },
-    ));
+          title: "Shop Dector ",
+          theme: ThemeData(
+              primaryColor: Colors.blueAccent,
+              primaryColorDark: Colors.indigo[200],
+              accentColor: Colors.white),
+          home: TabsScreen(),
+          routes: {
+            ProductDetalsScreen.routeName: (ctx) => ProductDetalsScreen(),
+            FavoriteScreen.routeName: (ctx) => FavoriteScreen(),
+            OrderScreen.routeName: (ctx) => OrderScreen(),
+          },
+        ));
   }
 }

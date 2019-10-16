@@ -4,8 +4,6 @@ import './favorite_screen.dart';
 import '../widgets/mainDrawer.dart';
 import '../screens/order_screen.dart';
 import '../screens/product_screen.dart';
-import 'package:provider/provider.dart';
-import '../providers/products.dart';
 
 enum FilterOptions { Favorites, All }
 
