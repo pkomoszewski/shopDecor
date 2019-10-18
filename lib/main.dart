@@ -6,6 +6,7 @@ import './screens/product_detals_screen.dart';
 import './providers/products.dart';
 import 'package:provider/provider.dart';
 import './providers/cart.dart';
+import './screens/category_screen.dart';
 
 void main() {
   runApp(_Myapp());
@@ -32,14 +33,15 @@ class _MyappState extends State<_Myapp> {
         child: MaterialApp(
           title: "Shop Dector ",
           theme: ThemeData(
-              primaryColor: Colors.blueAccent,
-              primaryColorDark: Colors.indigo[200],
-              accentColor: Colors.white),
+              primaryColor: Colors.white,
+              primaryColorDark: Colors.grey[400],
+              accentColor: Colors.black),
           home: TabsScreen(),
           routes: {
             ProductDetalsScreen.routeName: (ctx) => ProductDetalsScreen(),
             FavoriteScreen.routeName: (ctx) => FavoriteScreen(),
             OrderScreen.routeName: (ctx) => OrderScreen(),
+            CategoryScreen.routeName: (ctx) => CategoryScreen()
           },
         ));
   }

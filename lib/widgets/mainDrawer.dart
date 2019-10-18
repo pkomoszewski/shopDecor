@@ -20,7 +20,7 @@ class MainDrawer extends StatelessWidget {
         Container(
             height: 120,
             width: double.infinity,
-            color: Colors.blueAccent,
+            color: Theme.of(context).primaryColorDark,
             alignment: Alignment.center,
             child: Text("Shop Decor",
                 style: TextStyle(
@@ -28,12 +28,11 @@ class MainDrawer extends StatelessWidget {
                     fontSize: 36,
                     fontWeight: FontWeight.w700))),
         SizedBox(height: 25),
-        bulidListTitle("Main", Icons.shopping_basket,
-        (){
+        bulidListTitle("Main", Icons.shopping_basket, () {
           Navigator.of(context).pushReplacementNamed('/');
         }),
-        bulidListTitle("Favorite", Icons.favorite,(){
-            Navigator.of(context).pushReplacementNamed(FavoriteScreen.routeName);
+        bulidListTitle("Favorite", Icons.favorite, () {
+          Navigator.of(context).pushReplacementNamed(FavoriteScreen.routeName);
         })
       ],
     ));

@@ -12,16 +12,11 @@ class ProductScreen extends StatelessWidget {
     final products =
         showFavorite ? producutsData.favoriteItems : producutsData.items;
 
-    return GridView.builder(
+    return ListView.builder(
       padding: EdgeInsets.all(10.0),
       itemCount: products.length,
       itemBuilder: (ctx, i) => ChangeNotifierProvider.value(
           value: products[i], child: ProductItem()),
-      gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-          maxCrossAxisExtent: 300,
-          childAspectRatio: 3 / 2,
-          crossAxisSpacing: 5,
-          mainAxisSpacing: 5),
     );
   }
 }

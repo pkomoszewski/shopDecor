@@ -10,43 +10,69 @@ class ProductItem extends StatelessWidget {
     final product = Provider.of<Product>(context, listen: false);
     final order = Provider.of<Cart>(context);
 
-    return Container(
-      child: ClipRRect(
-          borderRadius: BorderRadius.circular(10),
-          child: GridTile(
-            child: GestureDetector(
-                onTap: () {
-                  Navigator.of(context).pushNamed(ProductDetalsScreen.routeName,
-                      arguments: product.id);
-                },
-                child: Image.network(
-                  product.imageUrl,
-                  fit: BoxFit.cover,
-                )),
-            footer: GridTileBar(
-              backgroundColor: Theme.of(context).primaryColorDark,
-              leading: Consumer<Product>(
-                builder: (context, product, _) => IconButton(
-                  icon: Icon(Icons.favorite,
-                      color: product.isfavorite ? Colors.red : Colors.grey),
-                  onPressed: () {
-                    product.toogleFavorite();
-                  },
+    return GestureDetector(
+        onTap: () {
+          Navigator.of(context)
+              .pushNamed(ProductDetalsScreen.routeName, arguments: product.id);
+        },
+        child: Card(
+            child: Container(
+          height: MediaQuery.of(context).size.height * 0.3,
+          width: MediaQuery.of(context).size.width,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: <Widget>[
+              Container(
+                  height: MediaQuery.of(context).size.height * 0.25,
+                  width: 120,
+                  child: Image.network(
+                    product.imageUrl,
+                    fit: BoxFit.cover,
+                  )),
+              Container(
+                  padding: EdgeInsets.all(10),
+                  height: MediaQuery.of(context).size.height * 0.3,
+                  width: 150,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text(product.title,
+                          style: TextStyle(
+                              fontSize: 20,
+                              color: Theme.of(context).accentColor)),
+                      Text('${product.price.toString()} PLN',
+                          style: TextStyle(
+                              fontSize: 16,
+                              color: Theme.of(context).accentColor,
+                              fontWeight: FontWeight.bold))
+                    ],
+                  )),
+              Container(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Consumer<Product>(
+                      builder: (context, product, _) => IconButton(
+                        color: product.isfavorite
+                            ? Colors.red
+                            : Theme.of(context).primaryColorDark,
+                        icon: Icon(Icons.favorite),
+                        onPressed: () => product.toogleFavorite(),
+                      ),
+                    ),
+                    IconButton(
+                      color: Theme.of(context).primaryColorDark,
+                      icon: Icon(Icons.add_shopping_cart),
+                      onPressed: () {
+                        order.addItem(product.id, product.price, product.title);
+                      },
+                    )
+                  ],
                 ),
-              ),
-              trailing: IconButton(
-                icon: Icon(Icons.add_shopping_cart),
-                color: Theme.of(context).accentColor,
-                onPressed: () =>
-                    order.addItem(product.id, product.price, product.title),
-              ),
-              title: Text(
-                product.title,
-                style: TextStyle(
-                    color: Theme.of(context).accentColor, fontSize: 15),
-              ),
-            ),
-          )),
-    );
+              )
+            ],
+          ),
+        )));
   }
 }

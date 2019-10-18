@@ -7,6 +7,7 @@ import '../screens/product_screen.dart';
 import 'package:provider/provider.dart';
 import '../providers/cart.dart';
 import '../widgets/badge.dart';
+import '../screens/category_screen.dart';
 
 enum FilterOptions { Favorites, All }
 
@@ -90,6 +91,13 @@ class _TabsScreenState extends State<TabsScreen> {
                   Navigator.of(context).pushNamed(OrderScreen.routeName);
                 },
               )),
+          IconButton(
+            icon: Icon(Icons.person),
+            onPressed: () {
+              Navigator.of(context)
+                  .pushNamed(CategoryScreen.routeName, arguments: "p1");
+            },
+          ),
         ],
       ),
       body: _pages[_selectedPageIndex]['page'],

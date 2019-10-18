@@ -48,10 +48,14 @@ class OrderItem extends StatelessWidget {
           padding: EdgeInsets.all(8),
           child: ListTile(
             leading: CircleAvatar(
+              backgroundColor: Theme.of(context).primaryColorDark,
               child: Padding(
                 padding: EdgeInsets.all(5),
                 child: FittedBox(
-                  child: Text('\$$price'),
+                  child: Text(
+                    '\$$price',
+                    style: TextStyle(color: Theme.of(context).primaryColor),
+                  ),
                 ),
               ),
             ),
