@@ -22,14 +22,14 @@ class Products with ChangeNotifier {
       size: ["29", "30", "32", "34"],
     ),
     Product(
-      id: 'p3',
-      title: 'Yellow Scarf',
-      description:
-          'Warm and cozy - exactly what you need for the winter.Warm and cozy ',
-      price: 19.99,
-      imageUrl:
-          'https://live.staticflickr.com/4043/4438260868_cc79b3369d_z.jpg',
-    ),
+        id: 'p3',
+        title: 'Yellow Scarf',
+        description:
+            'Warm and cozy - exactly what you need for the winter.Warm and cozy ',
+        price: 19.99,
+        imageUrl:
+            'https://live.staticflickr.com/4043/4438260868_cc79b3369d_z.jpg',
+        size: []),
     Product(
       id: 'p4',
       title: 'A Pan',

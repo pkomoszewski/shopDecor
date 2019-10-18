@@ -19,18 +19,41 @@ class ProductDetalsScreen extends StatelessWidget {
           isScrollControlled: true,
           context: context,
           builder: (BuildContext context) {
-            return Container(
-                height: 100,
-                child: new Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Text(
-                      '${loadedProduct.title} add to box',
-                      style: TextStyle(fontSize: 20),
-                    )
-                  ],
-                ));
+            if (loadedProduct.size.isNotEmpty) {
+              return Container(
+                  height: 200,
+                  child: new Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Text(
+                        'Plase choose to size:',
+                        style: TextStyle(fontSize: 20),
+                      ),
+                      Expanded(
+                          child: ListView.builder(
+                        itemCount: loadedProduct.size.length,
+                        itemBuilder: (context, i) => Container(
+                          height: 45,
+                          padding: EdgeInsets.all(15),
+                          child: Text(loadedProduct.size[i]),
+                        ),
+                      ))
+                    ],
+                  ));
+            } else {
+              return Container(
+                  height: 200,
+                  child: new Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          'You add item to box',
+                          style: TextStyle(fontSize: 20),
+                        )
+                      ]));
+            }
           });
+
       order.addItem(loadedProduct.id, loadedProduct.price, loadedProduct.title);
     }
 

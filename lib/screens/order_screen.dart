@@ -14,14 +14,34 @@ class OrderScreen extends StatelessWidget {
         appBar: AppBar(
           title: Text("Your order"),
         ),
-        body: ListView.builder(
-            itemCount: cart.items.length,
-            itemBuilder: (context, i) => OrderItem(
-                  cart.items.values.toList()[i].id,
-                  cart.items.keys.toList()[i],
-                  cart.items.values.toList()[i].title,
-                  cart.items.values.toList()[i].price,
-                  cart.items.values.toList()[i].quantity,
-                )));
+        body: Column(
+          children: <Widget>[
+            Card(
+              child: Padding(
+                padding: EdgeInsets.all(10),
+                child: Row(
+                  children: <Widget>[
+                    Text("Total :", style: TextStyle(fontSize: 18)),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Text('\$${cart.totalAmount.toString()}',
+                        style: TextStyle(fontSize: 16))
+                  ],
+                ),
+              ),
+            ),
+            Expanded(
+                child: ListView.builder(
+                    itemCount: cart.items.length,
+                    itemBuilder: (context, i) => OrderItem(
+                          cart.items.values.toList()[i].id,
+                          cart.items.keys.toList()[i],
+                          cart.items.values.toList()[i].title,
+                          cart.items.values.toList()[i].price,
+                          cart.items.values.toList()[i].quantity,
+                        )))
+          ],
+        ));
   }
 }

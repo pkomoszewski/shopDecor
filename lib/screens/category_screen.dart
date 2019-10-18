@@ -11,7 +11,13 @@ class CategoryScreen extends StatelessWidget {
     final loadedProduct = Provider.of<Products>(context).findById(id);
 
     return Center(
-      child: Text("huj"),
-    );
+        child: Column(
+      children: <Widget>[
+        Expanded(
+            child: ListView.builder(
+                itemCount: loadedProduct.size.length,
+                itemBuilder: (context, i) => Text(loadedProduct.size[i])))
+      ],
+    ));
   }
 }
