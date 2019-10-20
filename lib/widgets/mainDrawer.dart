@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import '../screens/favorite_screen.dart';
+import '../screens/hot_sale_screen.dart';
+import '../icons/Custom_Icons.dart';
 
 class MainDrawer extends StatelessWidget {
   Widget bulidListTitle(String name, IconData icon, Function tapFunction) {
@@ -19,20 +21,25 @@ class MainDrawer extends StatelessWidget {
       children: <Widget>[
         Container(
             height: 120,
+            decoration: BoxDecoration(
+                border: Border(bottom: BorderSide(color: Colors.grey))),
             width: double.infinity,
-            color: Theme.of(context).primaryColorDark,
             alignment: Alignment.center,
             child: Text("Shop Decor",
                 style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 36,
-                    fontWeight: FontWeight.w700))),
+                  color: Theme.of(context).accentColor,
+                  fontSize: 36,
+                ))),
         SizedBox(height: 25),
-        bulidListTitle("Main", Icons.shopping_basket, () {
+        bulidListTitle("Home", MyFlutterApp.home, () {}),
+        bulidListTitle("Product", MyFlutterApp.gift, () {
           Navigator.of(context).pushReplacementNamed('/');
         }),
-        bulidListTitle("Favorite", Icons.favorite, () {
+        bulidListTitle("Favorite", MyFlutterApp.heart, () {
           Navigator.of(context).pushReplacementNamed(FavoriteScreen.routeName);
+        }),
+        bulidListTitle("Hot Sale", MyFlutterApp.star, () {
+          Navigator.of(context).pushReplacementNamed(HotSaleScreen.routeName);
         })
       ],
     ));

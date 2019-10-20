@@ -44,39 +44,44 @@ class OrderItem extends StatelessWidget {
             horizontal: 15,
             vertical: 4,
           ),
-          child: Container(
-              padding: EdgeInsets.all(8),
-              child: Row(
-                children: <Widget>[
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.55,
-                    child: ListTile(
-                      leading: CircleAvatar(
-                        backgroundColor: Theme.of(context).primaryColorDark,
-                        child: Padding(
-                          padding: EdgeInsets.all(5),
-                          child: FittedBox(
-                            child: Text(
-                              '\$$price',
-                              style: TextStyle(
-                                  color: Theme.of(context).primaryColor),
+          child: LayoutBuilder(builder: (context, constrainst) {
+            var height = constrainst.maxHeight;
+            var width = constrainst.maxWidth;
+            return Container(
+                height: 100,
+                padding: EdgeInsets.all(8),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Container(
+                      width: width * 0.5,
+                      child: ListTile(
+                        leading: CircleAvatar(
+                          backgroundColor: Theme.of(context).primaryColorDark,
+                          child: Padding(
+                            padding: EdgeInsets.all(5),
+                            child: FittedBox(
+                              child: Text(
+                                '\$${price.toStringAsFixed(2)}',
+                                style: TextStyle(
+                                    color: Theme.of(context).primaryColor),
+                              ),
                             ),
                           ),
                         ),
+                        title: Text(title),
+                        subtitle: Text(
+                            'Total: \$${(price * quantity).toStringAsFixed(2)}'),
                       ),
-                      title: Text(title),
-                      subtitle: Text('Total: \$${(price * quantity)}'),
                     ),
-                  ),
-                  Expanded(
-                    child: Row(
+                    Row(
                       children: <Widget>[
                         IconButton(
                           color: Theme.of(context).primaryColorDark,
                           icon: Icon(Icons.arrow_back_ios),
                           onPressed: () {
                             Provider.of<Cart>(context, listen: false)
-                                .addNextItem(productId);
+                                .substractItem(productId, quantity);
                           },
                         ),
                         Text('$quantity x'),
@@ -85,14 +90,14 @@ class OrderItem extends StatelessWidget {
                           icon: Icon(Icons.arrow_forward_ios),
                           onPressed: () {
                             Provider.of<Cart>(context, listen: false)
-                                .substractItem(productId, quantity);
+                                .addNextItem(productId);
                           },
                         ),
                       ],
                     ),
-                  )
-                ],
-              )),
+                  ],
+                ));
+          }),
         ));
   }
 }

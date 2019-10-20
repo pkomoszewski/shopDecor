@@ -4,14 +4,15 @@ import './product.dart';
 class Products with ChangeNotifier {
   List<Product> _items = [
     Product(
-      id: 'p1',
-      title: 'Red Shirt',
-      description: 'A red shirt - it is pretty red!',
-      price: 29.99,
-      imageUrl:
-          'https://cdn.pixabay.com/photo/2016/10/02/22/17/red-t-shirt-1710578_1280.jpg',
-      size: ["S", "M", "L", "XXL"],
-    ),
+        id: 'p1',
+        title: 'Red Shirt',
+        description: 'A red shirt - it is pretty red!',
+        price: 29.99,
+        imageUrl:
+            'https://cdn.pixabay.com/photo/2016/10/02/22/17/red-t-shirt-1710578_1280.jpg',
+        size: ["S", "M", "L", "XXL"],
+        isPromo: true,
+        promoPrice: 15.20),
     Product(
       id: 'p2',
       title: 'Trousers',
@@ -29,16 +30,19 @@ class Products with ChangeNotifier {
         price: 19.99,
         imageUrl:
             'https://live.staticflickr.com/4043/4438260868_cc79b3369d_z.jpg',
-        size: []),
+        size: [],
+        isPromo: true,
+        promoPrice: 10.30),
     Product(
-      id: 'p4',
-      title: 'A Pan',
-      description: 'Prepare any meal you want.',
-      price: 49.99,
-      imageUrl:
-          'https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Cast-Iron-Pan.jpg/1024px-Cast-Iron-Pan.jpg',
-      size: ["small-16", "medium-20", "big-24"],
-    ),
+        id: 'p4',
+        title: 'A Pan',
+        description: 'Prepare any meal you want.',
+        price: 49.99,
+        imageUrl:
+            'https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Cast-Iron-Pan.jpg/1024px-Cast-Iron-Pan.jpg',
+        size: ["small-16", "medium-20", "big-24"],
+        isPromo: true,
+        promoPrice: 25.30),
   ];
 
   List<Product> get items {
@@ -47,6 +51,10 @@ class Products with ChangeNotifier {
 
   List<Product> get favoriteItems {
     return _items.where((item) => item.isfavorite).toList();
+  }
+
+  List<Product> get promoItems {
+    return _items.where((item) => item.isPromo).toList();
   }
 
   Product findById(String id) {

@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import '../providers/product.dart';
 import '../screens/product_detals_screen.dart';
 import '../providers/cart.dart';
+import '../icons/Custom_Icons.dart';
 
 class ProductItem extends StatelessWidget {
   @override
@@ -57,13 +58,13 @@ class ProductItem extends StatelessWidget {
                         color: product.isfavorite
                             ? Colors.red
                             : Theme.of(context).primaryColorDark,
-                        icon: Icon(Icons.favorite),
+                        icon: Icon(MyFlutterApp.heart),
                         onPressed: () => product.toogleFavorite(),
                       ),
                     ),
                     IconButton(
                       color: Theme.of(context).primaryColorDark,
-                      icon: Icon(Icons.add_shopping_cart),
+                      icon: Icon(MyFlutterApp.cart),
                       onPressed: () {
                         order.addItem(product.id, product.price, product.title);
                       },

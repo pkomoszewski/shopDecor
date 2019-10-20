@@ -25,7 +25,7 @@ class OrderScreen extends StatelessWidget {
                     SizedBox(
                       width: 10,
                     ),
-                    Text('\$${cart.totalAmount.toString()}',
+                    Text('\$${cart.totalAmount.toStringAsFixed(2)}',
                         style: TextStyle(fontSize: 16))
                   ],
                 ),
