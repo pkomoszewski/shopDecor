@@ -59,15 +59,15 @@ class ProductDetalsScreen extends StatelessWidget {
 
     return Scaffold(
         appBar: AppBar(title: Text(loadedProduct.title)),
-        body: Column(
-          children: <Widget>[
-            Container(
-              height: MediaQuery.of(context).size.height * 0.60,
-              width: MediaQuery.of(context).size.width,
-              child: Image.network(loadedProduct.imageUrl, fit: BoxFit.cover),
-            ),
-            Expanded(
-              child: Container(
+        body: SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              Container(
+                height: MediaQuery.of(context).size.height * 0.60,
+                width: MediaQuery.of(context).size.width,
+                child: Image.network(loadedProduct.imageUrl, fit: BoxFit.cover),
+              ),
+              Container(
                   color: Theme.of(context).primaryColor,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -76,7 +76,10 @@ class ProductDetalsScreen extends StatelessWidget {
                           contentPadding: EdgeInsets.symmetric(
                               vertical: 20, horizontal: 10),
                           title: Text(loadedProduct.title),
-                          subtitle: Text(loadedProduct.description),
+                          subtitle: Text(
+                            loadedProduct.description,
+                            softWrap: true,
+                          ),
                           trailing: Text('${loadedProduct.price} PLN',
                               style: TextStyle(
                                   fontSize: 20,
@@ -98,8 +101,8 @@ class ProductDetalsScreen extends StatelessWidget {
                           )),
                     ],
                   )),
-            ),
-          ],
+            ],
+          ),
         ));
   }
 }
