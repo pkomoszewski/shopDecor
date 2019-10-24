@@ -4,10 +4,12 @@ import './screens/order_screen.dart';
 import './screens/favorite_screen.dart';
 import './screens/product_detals_screen.dart';
 import './providers/products.dart';
+import './providers/orders.dart';
 import 'package:provider/provider.dart';
 import './providers/cart.dart';
 import './screens/category_screen.dart';
 import './screens/hot_sale_screen.dart';
+import './screens/history_order_screen.dart';
 
 void main() {
   runApp(_Myapp());
@@ -29,6 +31,9 @@ class _MyappState extends State<_Myapp> {
           ),
           ChangeNotifierProvider.value(
             value: Cart(),
+          ),
+          ChangeNotifierProvider.value(
+            value: Orders(),
           )
         ],
         child: MaterialApp(
@@ -44,7 +49,8 @@ class _MyappState extends State<_Myapp> {
             FavoriteScreen.routeName: (ctx) => FavoriteScreen(),
             OrderScreen.routeName: (ctx) => OrderScreen(),
             CategoryScreen.routeName: (ctx) => CategoryScreen(),
-            HotSaleScreen.routeName: (ctx) => HotSaleScreen()
+            HotSaleScreen.routeName: (ctx) => HotSaleScreen(),
+            HistoryOrderScreen.routeName: (ctx) => HistoryOrderScreen()
           },
         ));
   }

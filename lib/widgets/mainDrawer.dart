@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shopdecor/screens/history_order_screen.dart';
 import '../screens/favorite_screen.dart';
 import '../screens/hot_sale_screen.dart';
 import '../icons/Custom_Icons.dart';
@@ -40,6 +41,10 @@ class MainDrawer extends StatelessWidget {
         }),
         bulidListTitle("Hot Sale", MyFlutterApp.star, () {
           Navigator.of(context).pushReplacementNamed(HotSaleScreen.routeName);
+        }),
+        bulidListTitle("Your history", MyFlutterApp.user, () {
+          Navigator.of(context)
+              .pushReplacementNamed(HistoryOrderScreen.routeName);
         })
       ],
     ));
