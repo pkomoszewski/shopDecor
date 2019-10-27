@@ -45,8 +45,8 @@ class Cart with ChangeNotifier {
     notifyListeners();
   }
 
-  void substractItem(String productId, int quantity) {
-    if (quantity <= 1) {
+  void substractItem(String productId) {
+    if (_items[productId].quantity <= 1) {
       removeItem(productId);
     }
     _items.update(

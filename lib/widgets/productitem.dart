@@ -67,6 +67,19 @@ class ProductItem extends StatelessWidget {
                       icon: Icon(MyFlutterApp.cart),
                       onPressed: () {
                         order.addItem(product.id, product.price, product.title);
+                        Scaffold.of(context).hideCurrentSnackBar();
+                        Scaffold.of(context).showSnackBar(SnackBar(
+                          backgroundColor: Theme.of(context).primaryColorDark,
+                          content: Text("add product to box"),
+                          duration: Duration(seconds: 2),
+                          action: SnackBarAction(
+                            
+                            label: "UNDO",onPressed: (){
+                            order.substractItem(product.id);
+                    
+                          },
+                          textColor: Colors.orange,),
+                        ));
                       },
                     )
                   ],

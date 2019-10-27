@@ -33,7 +33,9 @@ class _HistoryItemState extends State<HistoryItem> {
         ),
       ),
       if (_expanded)
-        Container(
+        Padding(
+          padding: EdgeInsets.all(5),
+          child:Container(
           height: min(widget.historyOrder.products.length * 20.0, 100),
           child: ListView.builder(
             itemCount: widget.historyOrder.products.length,
@@ -48,7 +50,7 @@ class _HistoryItemState extends State<HistoryItem> {
               );
             },
           ),
-        ),
+        )),
     ])));
   }
 }

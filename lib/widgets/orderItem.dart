@@ -81,7 +81,7 @@ class OrderItem extends StatelessWidget {
                           icon: Icon(Icons.arrow_back_ios),
                           onPressed: () {
                             Provider.of<Cart>(context, listen: false)
-                                .substractItem(productId, quantity);
+                                .substractItem(productId);
                           },
                         ),
                         Text('$quantity x'),
