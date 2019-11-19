@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shopdecor/screens/history_order_screen.dart';
 import '../screens/favorite_screen.dart';
 import '../screens/hot_sale_screen.dart';
+import '../screens/user_products_screen.dart';
 import '../icons/Custom_Icons.dart';
 
 class MainDrawer extends StatelessWidget {
@@ -45,6 +46,10 @@ class MainDrawer extends StatelessWidget {
         bulidListTitle("Your history", MyFlutterApp.user, () {
           Navigator.of(context)
               .pushReplacementNamed(HistoryOrderScreen.routeName);
+        }),
+        bulidListTitle("Your user products", MyFlutterApp.chevron_right, () {
+          Navigator.of(context)
+              .pushReplacementNamed(UserProductsScreen.routeName);
         })
       ],
     ));
