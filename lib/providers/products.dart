@@ -71,18 +71,15 @@ class Products with ChangeNotifier {
     _items.add(newProduct);
     notifyListeners();
   }
-  void updateProduct(String id, Product newProduct)
-  {
 
-    final oldProduct=_items.indexWhere((prod)=>prod.id ==id);
-    if(oldProduct>=0){
-      _items[oldProduct]=newProduct;
-    notifyListeners();
-
-    }
-    else{
-
-      print("Error index in product durning update product. Check index ");
+  void updateProduct(String id, Product newProduct) {
+    final oldProduct = _items.indexWhere((prod) => prod.id == id);
+    if (oldProduct >= 0) {
+      _items[oldProduct] = newProduct;
+      notifyListeners();
+    } else {
+      print("Error index in product durning update product. Check index " +
+          oldProduct.toString());
     }
   }
 }

@@ -47,7 +47,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
       final id = ModalRoute.of(context).settings.arguments as String;
 
       if (id != null) {
-        final _editProduct =
+        _editProduct =
             Provider.of<Products>(context, listen: false).findById(id);
         _initValue = {
           'title': _editProduct.title,
@@ -59,6 +59,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
       }
     }
     _isInit = false;
+    super.didChangeDependencies();
   }
 
   void _updateImageURL() {
@@ -74,15 +75,20 @@ class _EditProductScreenState extends State<EditProductScreen> {
 
       setState(() {});
     }
-  }  
+  }
 
   void _saveForm() {
     final isValid = _form.currentState.validate();
     if (!isValid) {
-      Provider.of<Products>(context, listen: false).updateProduct(_editProduct.id,_editProduct);
+      return;
     }
     _form.currentState.save();
-    Provider.of<Products>(context, listen: false).addProduct(_editProduct);
+    if (_editProduct.id != null) {
+      Provider.of<Products>(context, listen: false)
+          .updateProduct(_editProduct.id, _editProduct);
+    } else {
+      Provider.of<Products>(context, listen: false).addProduct(_editProduct);
+    }
     Navigator.of(context).pop();
   }
 
@@ -120,11 +126,13 @@ class _EditProductScreenState extends State<EditProductScreen> {
                 },
                 onSaved: (value) {
                   _editProduct = Product(
-                      title: value,
-                      price: _editProduct.price,
-                      description: _editProduct.description,
-                      imageUrl: _editProduct.imageUrl,
-                      id: null);
+                    title: value,
+                    price: _editProduct.price,
+                    description: _editProduct.description,
+                    imageUrl: _editProduct.imageUrl,
+                    id: _editProduct.id,
+                    isfavorite: _editProduct.isfavorite,
+                  );
                 },
               ),
               TextFormField(
@@ -155,7 +163,8 @@ class _EditProductScreenState extends State<EditProductScreen> {
                       price: double.parse(value),
                       description: _editProduct.description,
                       imageUrl: _editProduct.imageUrl,
-                      id: null);
+                      id: _editProduct.id,
+                      isfavorite: _editProduct.isfavorite);
                 },
               ),
               TextFormField(
@@ -181,7 +190,8 @@ class _EditProductScreenState extends State<EditProductScreen> {
                       price: _editProduct.price,
                       description: value,
                       imageUrl: _editProduct.imageUrl,
-                      id: null);
+                      id: _editProduct.id,
+                      isfavorite: _editProduct.isfavorite);
                 },
               ),
               Padding(
@@ -202,8 +212,8 @@ class _EditProductScreenState extends State<EditProductScreen> {
                           if (value.isEmpty) {
                             return "Please enter a image URL";
                           }
-                          if (!value.startsWith("htpp") &&
-                              !value.startsWith("htpps")) {
+                          if (!value.startsWith("http") &&
+                              !value.startsWith("https")) {
                             return "Please enter correct adress ";
                           }
                           if (!value.endsWith(".png") &&
@@ -229,7 +239,8 @@ class _EditProductScreenState extends State<EditProductScreen> {
                               price: _editProduct.price,
                               description: _editProduct.description,
                               imageUrl: value,
-                              id: _editProduct.id);
+                              id: _editProduct.id,
+                              isfavorite: _editProduct.isfavorite);
                         },
                       ),
                     )
