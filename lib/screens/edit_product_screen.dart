@@ -74,12 +74,12 @@ class _EditProductScreenState extends State<EditProductScreen> {
 
       setState(() {});
     }
-  }
+  }  
 
   void _saveForm() {
     final isValid = _form.currentState.validate();
     if (!isValid) {
-      return;
+      Provider.of<Products>(context, listen: false).updateProduct(_editProduct.id,_editProduct);
     }
     _form.currentState.save();
     Provider.of<Products>(context, listen: false).addProduct(_editProduct);
@@ -229,7 +229,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                               price: _editProduct.price,
                               description: _editProduct.description,
                               imageUrl: value,
-                              id: null);
+                              id: _editProduct.id);
                         },
                       ),
                     )
