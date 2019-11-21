@@ -9,7 +9,7 @@ class UserProductsScreen extends StatelessWidget {
   static const routeName = '/userproduct';
   @override
   Widget build(BuildContext context) {
-    final productsData = Provider.of<Products>(context);
+    final productsData = Provider.of<Products>(context, listen: false);
 
     return Scaffold(
       appBar: MainAppbar(
