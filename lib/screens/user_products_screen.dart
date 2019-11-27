@@ -14,6 +14,7 @@ class UserProductsScreen extends StatelessWidget {
     return Scaffold(
       appBar: MainAppbar(
         height: 200,
+        isNew: "true",
       ),
       drawer: MainDrawer(),
       body: ListView.builder(

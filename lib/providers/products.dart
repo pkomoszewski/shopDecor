@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import "dart:convert";
 import './product.dart';
 import "package:http/http.dart" as http;
+
 class Products with ChangeNotifier {
   List<Product> _items = [
     Product(
@@ -62,28 +63,54 @@ class Products with ChangeNotifier {
     return _items.firstWhere((items) => items.id == id);
   }
 
-  void addProduct(Product product) {
-    const url="https://flutterapp-addba.firebaseio.com/products.json";
-    http.post(url,body:json.encode({
-        'title':product.title,
-        'description': product.description,
-        'price':product.price,
-        'imageUrl':product.imageUrl,
-        'isPromo': product.isfavorite,
-        'promoPrice': product.isPromo
+  Future<void> fetchandSetData() async {
+    const url = "https://flutterapp-addba.firebaseio.com/products.json";
 
-    })).then((response){
-
-    final newProduct = Product(
-        id: json.decode(response.body)['name'],
-        title: product.title,
-        description: product.description,
-        price: product.price,
-        imageUrl: product.imageUrl);
-    _items.add(newProduct);
+    try {
+      final response = await http.get(url);
+      final extractedData = json.decode(response.body) as Map<String, dynamic>;
+      final List<Product> loadedProducts = [];
+      extractedData.forEach((prodid, proData) {
+        loadedProducts.add(Product(
+          id: prodid,
+          title: proData['title'],
+          description: proData['description'],
+          price: proData['price'],
+          imageUrl: proData['imageUrl'],
+        ));
+      });
+      _items = loadedProducts;
     notifyListeners();
-    });
+    } catch (error) {
+      throw error;
+    }
+  }
 
+  Future<void> addProduct(Product product) async {
+    const url = "https://flutterapp-addba.firebaseio.com/products.json";
+
+    try {
+      final response = await http.post(url,
+          body: json.encode({
+            'title': product.title,
+            'description': product.description,
+            'price': product.price,
+            'imageUrl': product.imageUrl,
+            'isPromo': product.isfavorite,
+            'promoPrice': product.isPromo
+          }));
+
+      final newProduct = Product(
+          id: json.decode(response.body)['name'],
+          title: product.title,
+          description: product.description,
+          price: product.price,
+          imageUrl: product.imageUrl);
+      _items.add(newProduct);
+      notifyListeners();
+    } catch (error) {
+      throw error;
+    }
   }
 
   void updateProduct(String id, Product newProduct) {

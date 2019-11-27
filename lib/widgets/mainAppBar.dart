@@ -4,13 +4,17 @@ import '../screens/order_screen.dart';
 import 'package:provider/provider.dart';
 import '../providers/cart.dart';
 import '../widgets/badge.dart';
+import '../screens/edit_product_screen.dart';
+import 'package:provider/provider.dart';
 
 class MainAppbar extends StatelessWidget implements PreferredSizeWidget {
   final double height;
+  final String isNew;
 
   const MainAppbar({
     Key key,
     @required this.height,
+    this.isNew,
   }) : super(key: key);
   Widget build(BuildContext context) {
     return Container(
@@ -37,10 +41,18 @@ class MainAppbar extends StatelessWidget implements PreferredSizeWidget {
                       Navigator.of(context).pushNamed(OrderScreen.routeName);
                     },
                   )),
-              IconButton(
-                icon: Icon(MyFlutterApp.user, color: Colors.black),
-                onPressed: () {},
-              )
+              isNew == "true"
+                  ? IconButton(
+                      icon: Icon(Icons.add_box, color: Colors.black),
+                      onPressed: () {
+                        Navigator.of(context).pushNamed(
+                          EditProductScreen.routeName,
+                        );
+                      })
+                  : IconButton(
+                      icon: Icon(MyFlutterApp.user, color: Colors.black),
+                      onPressed: () {},
+                    ),
             ],
           ),
         ],
