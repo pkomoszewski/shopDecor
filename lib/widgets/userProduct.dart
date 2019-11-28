@@ -11,11 +11,7 @@ class UserProduct extends StatelessWidget {
   UserProduct(this.id, this.title, this.image);
   @override
   Widget build(BuildContext context) {
-    void _deletePrduct() {
-      Provider.of<Products>(
-        context,
-      ).deleteProduct(id);
-    }
+    final scaffold=Scaffold.of(context);
 
     return ListTile(
       title: Text(title),
@@ -39,7 +35,14 @@ class UserProduct extends StatelessWidget {
               icon: Icon(
                 Icons.delete,
               ),
-              onPressed: _deletePrduct,
+              onPressed: ()async{  try{   Provider.of<Products>(
+        context,
+      ).deleteProduct(id);}catch(error){
+       scaffold.showSnackBar(SnackBar(content: Text("Delecting failded!!"),));
+
+
+        
+      }},
             )
           ],
         ),

@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
-
+import "package:http/http.dart" as http;
+import "dart:convert";
 class Product with ChangeNotifier {
   final String id;
   final String title;
@@ -23,8 +24,15 @@ class Product with ChangeNotifier {
     final this.promoPrice,
   });
 
-  void toogleFavorite() {
-    isfavorite = !isfavorite;
+  Future<void> toogleFavorite() async{
+      isfavorite = !isfavorite;
+      final url = "https://flutterapp-addba.firebaseio.com/products/$id.json";
+await http.patch(url,body:json.encode({
+           
+            'isfavorite':isfavorite
+           
+
+}));
     notifyListeners();
   }
 

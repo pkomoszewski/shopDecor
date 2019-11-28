@@ -59,7 +59,7 @@ class ProductItem extends StatelessWidget {
                             ? Colors.red
                             : Theme.of(context).primaryColorDark,
                         icon: Icon(MyFlutterApp.heart),
-                        onPressed: () => product.toogleFavorite(),
+                        onPressed: () async => product.toogleFavorite(),
                       ),
                     ),
                     IconButton(
