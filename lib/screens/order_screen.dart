@@ -34,11 +34,32 @@ class OrderScreen extends StatelessWidget {
                             style: TextStyle(fontSize: 16)),
                       ],
                     ),
-                    InkWell(
+                  cart.items.isEmpty? 
+                      InkWell(
+                      
                         onTap: () {
-                          Provider.of<Orders>(context, listen: false).addOrders(
+                          Navigator.of(context).pushReplacementNamed('/');
+
+                        },
+                        child: Container(
+                          margin: EdgeInsets.only(left: 10),
+                          decoration: BoxDecoration(border: Border.all()),
+                          alignment: Alignment.center,
+                          height: 40,
+                          width: 100,
+                          child: Text(
+                            "Buy",
+                            style: TextStyle(fontSize: 20.0),
+                          ),
+                        )):
+                  
+                    InkWell(
+                      
+                        onTap: ()async {
+                         await Provider.of<Orders>(context, listen: false).addOrders(
                               cart.items.values.toList(), cart.totalAmount);
                           cart.cleanItems();
+
                         },
                         child: Container(
                           margin: EdgeInsets.only(left: 10),

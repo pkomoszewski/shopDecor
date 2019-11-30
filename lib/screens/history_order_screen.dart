@@ -12,12 +12,18 @@ class HistoryOrderScreen extends StatefulWidget {
   _HistoryOrderScreenState createState() => _HistoryOrderScreenState();
 }
 
-class _HistoryOrderScreenState extends State<HistoryOrderScreen> {
-  @override
-  Widget build(BuildContext context) {
-    final orderData = Provider.of<Orders>(context);
-    final userOrder = orderData.orders;
 
+class _HistoryOrderScreenState extends State<HistoryOrderScreen> {
+
+  @override
+  void didChangeDependencies() {
+     Provider.of<Orders>(context).fetchandSetDataOrder();
+      super.didChangeDependencies();
+
+}
+  Widget build(BuildContext context) {
+ final orderData =  Provider.of<Orders>(context);
+    final userOrder = orderData.orders;
     return Scaffold(
         drawer: MainDrawer(),
         appBar: MainAppbar(
