@@ -15,25 +15,20 @@ class HistoryOrderScreen extends StatefulWidget {
 
 class _HistoryOrderScreenState extends State<HistoryOrderScreen> {
 
-  @override
-  void didChangeDependencies() {
-     Provider.of<Orders>(context).fetchandSetDataOrder();
-      super.didChangeDependencies();
-
-}
+  
   Widget build(BuildContext context) {
  final orderData =  Provider.of<Orders>(context);
     final userOrder = orderData.orders;
     return Scaffold(
         drawer: MainDrawer(),
-        appBar: MainAppbar(
-          height: 200,
-        ),
+        appBar: MainAppbar(height: 200,),
+
+       
         body: ListView.builder(
           itemCount: userOrder.length,
           itemBuilder: (ctx, i) {
             return HistoryItem(userOrder[i]);
           },
-        ));
+        ) );
   }
 }

@@ -40,7 +40,7 @@ class _HotSaleScreenState extends State<HotSaleScreen> {
                     Text("Hot Sale",
                         style: TextStyle(
                             fontSize: 28.0, fontFamily: "Montserrat-Bold")),
-                    Text("this is time",
+                    Text(promoProducts.isNotEmpty?"this is time":"this is not time to promo",
                         style: TextStyle(
                             fontSize: 16.0, fontFamily: "Montserrat-Medium"))
                   ],

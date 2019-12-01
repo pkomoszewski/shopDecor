@@ -18,7 +18,7 @@ class Products with ChangeNotifier {
   }
 
   List<Product> get promoItems {
-    return _items.where((item) => item.isPromo).toList();
+    return _items.where((item) => item.promoPrice>0.0).toList();
   }
 
   Product findById(String id) {
@@ -32,6 +32,8 @@ class Products with ChangeNotifier {
       final response = await http.get(url);
       final extractedData = json.decode(response.body) as Map<String, dynamic>;
       final List<Product> loadedProducts = [];
+
+      if(extractedData!=null){
       extractedData.forEach((prodid, proData) {
         loadedProducts.add(Product(
           id: prodid,
@@ -39,13 +41,19 @@ class Products with ChangeNotifier {
           description: proData['description'],
           price: proData['price'],
           imageUrl: proData['imageUrl'],
-          isPromo: proData['isPromo'],
-          isfavorite: proData['isfavorite']
+          promoPrice:proData['promoPrice'],
+          isfavorite: proData['isfavorite'],
+          
 
         ));
       });
       _items = loadedProducts;
     notifyListeners();
+
+      }else{
+
+            _items = loadedProducts;
+      }
     } catch (error) {
       throw error;
     }
@@ -63,7 +71,9 @@ class Products with ChangeNotifier {
             'imageUrl': product.imageUrl,
             'isPromo': product.isfavorite,
             'isfavorite':product.isfavorite,
-            'promoPrice': product.isPromo
+         
+            'promoPrice': product.promoPrice
+            
           }));
 
       final newProduct = Product(
@@ -89,8 +99,8 @@ await http.patch(url,body:json.encode({
             'description': newProduct.description,
             'price': newProduct.price,
             'imageUrl': newProduct.imageUrl,
-            'isfavorite':newProduct.isfavorite
-           
+            'isfavorite':newProduct.isfavorite,
+            'promoPrice': newProduct.promoPrice
 
 }));
  _items[oldProduct] = newProduct;

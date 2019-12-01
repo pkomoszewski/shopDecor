@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'dart:math';
 import '../providers/orders.dart';
+import 'package:provider/provider.dart';
 
 class HistoryItem extends StatefulWidget {
   final OrdersItem historyOrder;
@@ -31,6 +32,16 @@ class _HistoryItemState extends State<HistoryItem> {
             });
           },
         ),
+     
+     
+    leading:  
+       IconButton(icon: Icon(Icons.delete, color: Colors.black),
+          onPressed: ()async {
+                         await Provider.of<Orders>(context).deleteHistoryOrder(widget.historyOrder.id);
+                        
+
+                        },)
+        
       ),
       if (_expanded)
         Padding(

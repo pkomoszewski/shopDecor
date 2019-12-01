@@ -62,26 +62,60 @@ class Orders with ChangeNotifier {
       final response = await http.get(url);
       final extractedData = json.decode(response.body) as Map<String, dynamic>;
       final List<OrdersItem> loadedProducts = [];
+
+      if(extractedData!=null){
       extractedData.forEach((orderid, proData) {
         loadedProducts.add(OrdersItem(
-            id: orderid,
-            amount: proData['amount'],
-           dateTime: DateTime.parse(proData['dateTime']),
-           products: (proData['products'] as List<dynamic>)
+          id: orderid,
+          amount: proData['amount'],
+          dateTime: DateTime.parse(proData['dateTime']),
+          products: (proData['products'] as List<dynamic>)
               .map(
                 (item) => CartItem(
-                      id: item['id'],
-                      price: item['price'],
-                      quantity: item['quantity'],
-                      title: item['title'],
-                    ),
+                  id: item['id'],
+                  price: item['price'],
+                  quantity: item['quantity'],
+                  title: item['title'],
+                ),
               )
-              .toList(),));
+              .toList(),
+        ));
       });
       _orders = loadedProducts;
       notifyListeners();
+      }else{
+         _orders = loadedProducts;
+      }
     } catch (error) {
+      print("dont connect to server");
+
       throw error;
     }
+  }
+
+  Future<void> deleteHistoryOrder(String id) async {
+    final url = "https://flutterapp-addba.firebaseio.com/orders/$id.json";
+
+    final existingOrdersIndex = _orders.indexWhere((prod) => prod.id == id);
+
+    final existingOrder = _orders[existingOrdersIndex];
+    _orders.removeAt(existingOrdersIndex);
+
+    debugPrint(" connect to server");
+
+    final response = await http.delete(url);
+    
+    if (response.statusCode ==400) {
+      debugPrint("don't delete order");
+      _orders.insert(existingOrdersIndex, existingOrder);
+      notifyListeners();
+    }
+
+    notifyListeners();
+  }
+
+  void cleanOrder() {
+    _orders.clear();
+    notifyListeners();
   }
 }

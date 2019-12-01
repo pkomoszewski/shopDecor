@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shopdecor/screens/user_profil_screen.dart';
 import '../icons/Custom_Icons.dart';
 import '../screens/order_screen.dart';
 import 'package:provider/provider.dart';
@@ -51,7 +52,10 @@ class MainAppbar extends StatelessWidget implements PreferredSizeWidget {
                       })
                   : IconButton(
                       icon: Icon(MyFlutterApp.user, color: Colors.black),
-                      onPressed: () {},
+                      onPressed: () {
+                          Navigator.of(context).pushNamed(
+                          UserProfileScreen.routeName);
+                      },
                     ),
             ],
           ),

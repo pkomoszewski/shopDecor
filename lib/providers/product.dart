@@ -9,7 +9,6 @@ class Product with ChangeNotifier {
   final String imageUrl;
   final List size;
   bool isfavorite;
-  bool isPromo;
   final double promoPrice;
 
   Product({
@@ -20,7 +19,6 @@ class Product with ChangeNotifier {
     @required this.imageUrl,
     this.size,
     this.isfavorite = false,
-    this.isPromo = false,
     final this.promoPrice,
   });
 
@@ -36,8 +34,5 @@ await http.patch(url,body:json.encode({
     notifyListeners();
   }
 
-  void tooglePromo() {
-    isPromo = !isPromo;
-    notifyListeners();
-  }
+ 
 }

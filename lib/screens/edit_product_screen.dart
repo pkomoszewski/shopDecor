@@ -32,10 +32,12 @@ class _EditProductScreenState extends State<EditProductScreen> {
     'title': '',
     'price': '',
     'description': '',
-    'imageURL': ''
+    'imageURL': '',
+    'promoPrice': '',
   };
   var _isInit = true;
   var _isLoading = false;
+  var _isPromo = false;
   @override
   void initState() {
     _imageFocusNode.addListener(_updateImageURL);
@@ -54,8 +56,15 @@ class _EditProductScreenState extends State<EditProductScreen> {
           'title': _editProduct.title,
           'price': _editProduct.price.toString(),
           'description': _editProduct.description,
-          'iamgeURL': ''
+          'iamgeURL': '',
+          'promoPrice': _editProduct.promoPrice.toString()
         };
+        
+      if (_editProduct.promoPrice>0.0 ) {
+        setState(() {
+          _isPromo = true;
+        });
+      }
         _imageURLControler.text = _editProduct.imageUrl;
       }
     }
@@ -89,9 +98,8 @@ class _EditProductScreenState extends State<EditProductScreen> {
       _isLoading = true;
     });
     if (_editProduct.id != null) {
-    await  Provider.of<Products>(context, listen: false)
+      await Provider.of<Products>(context, listen: false)
           .updateProduct(_editProduct.id, _editProduct);
-  
     } else {
       try {
         await Provider.of<Products>(context, listen: false)
@@ -110,19 +118,18 @@ class _EditProductScreenState extends State<EditProductScreen> {
                       },
                     )
                   ],
-                ));}
+                ));
+      }
       // finally {
       //   setState(() {
       //     _isLoading = false;
       //   });
       // }
-      }
-        setState(() {
-        _isLoading = false;
-      });
-       Navigator.of(context).pop();
-
-    
+    }
+    setState(() {
+      _isLoading = false;
+    });
+    Navigator.of(context).pop();
   }
 
   @override
@@ -161,13 +168,13 @@ class _EditProductScreenState extends State<EditProductScreen> {
                       },
                       onSaved: (value) {
                         _editProduct = Product(
-                          title: value,
-                          price: _editProduct.price,
-                          description: _editProduct.description,
-                          imageUrl: _editProduct.imageUrl,
-                          id: _editProduct.id,
-                          isfavorite: _editProduct.isfavorite,
-                        );
+                            title: value,
+                            price: _editProduct.price,
+                            description: _editProduct.description,
+                            imageUrl: _editProduct.imageUrl,
+                            id: _editProduct.id,
+                            isfavorite: _editProduct.isfavorite,
+                            promoPrice: 0.0);
                       },
                     ),
                     TextFormField(
@@ -200,7 +207,8 @@ class _EditProductScreenState extends State<EditProductScreen> {
                             description: _editProduct.description,
                             imageUrl: _editProduct.imageUrl,
                             id: _editProduct.id,
-                            isfavorite: _editProduct.isfavorite);
+                            isfavorite: _editProduct.isfavorite,
+                            promoPrice: 0.0);
                       },
                     ),
                     TextFormField(
@@ -227,7 +235,8 @@ class _EditProductScreenState extends State<EditProductScreen> {
                             description: value,
                             imageUrl: _editProduct.imageUrl,
                             id: _editProduct.id,
-                            isfavorite: _editProduct.isfavorite);
+                            isfavorite: _editProduct.isfavorite,
+                            promoPrice: 0.0);
                       },
                     ),
                     Padding(
@@ -267,9 +276,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                               keyboardType: TextInputType.url,
                               controller: _imageURLControler,
                               focusNode: _imageFocusNode,
-                              onFieldSubmitted: (_) {
-                                _saveForm();
-                              },
+                              onFieldSubmitted: (_) {},
                               onSaved: (value) {
                                 _editProduct = Product(
                                     title: _editProduct.title,
@@ -277,13 +284,62 @@ class _EditProductScreenState extends State<EditProductScreen> {
                                     description: _editProduct.description,
                                     imageUrl: value,
                                     id: _editProduct.id,
-                                    isfavorite: _editProduct.isfavorite);
+                                    isfavorite: _editProduct.isfavorite,
+                                    promoPrice: 0.0);
                               },
                             ),
                           )
                         ],
                       ),
-                    )
+                    ),
+                    Row(
+                      children: <Widget>[
+                        Checkbox(
+                          value: _isPromo,
+                          onChanged: (_) {
+                            setState(() {
+                              _isPromo = !_isPromo;
+                            });
+                          },
+                        ),
+                        Text('Promo')
+                      ],
+                    ),
+                    _isPromo
+                        ? TextFormField(
+                            initialValue: _initValue['promoPrice'],
+                            validator: (value) {
+                              if (value.isEmpty) {
+                                return "Please enter a promo price";
+                              }
+                              if (double.tryParse(value) == null) {
+                                return "Please enter a valid price";
+                              }
+                              if (double.parse(value) <= 0) {
+                                return "Please enter a number greater than zero";
+                              }
+
+                              return null;
+                            },
+                            decoration:
+                                InputDecoration(labelText: 'Promo Price'),
+                            textInputAction: TextInputAction.next,
+                            keyboardType: TextInputType.number,
+                            onFieldSubmitted: (_) {
+                              _saveForm();
+                            },
+                            onSaved: (value) {
+                              _editProduct = Product(
+                                  title: _editProduct.title,
+                                  price: _editProduct.price,
+                                  description: _editProduct.description,
+                                  imageUrl: _editProduct.imageUrl,
+                                  id: _editProduct.id,
+                                  isfavorite: _editProduct.isfavorite,
+                                  promoPrice: double.parse(value));
+                            },
+                          )
+                        : Container()
                   ],
                 ),
               ),

@@ -12,6 +12,7 @@ import './screens/hot_sale_screen.dart';
 import './screens/history_order_screen.dart';
 import './screens/user_products_screen.dart';
 import './screens/edit_product_screen.dart';
+import './screens/user_profil_screen.dart';
 
 void main() {
   runApp(_Myapp());
@@ -54,7 +55,8 @@ class _MyappState extends State<_Myapp> {
             HotSaleScreen.routeName: (ctx) => HotSaleScreen(),
             HistoryOrderScreen.routeName: (ctx) => HistoryOrderScreen(),
             UserProductsScreen.routeName: (ctx) => UserProductsScreen(),
-            EditProductScreen.routeName: (ctx) => EditProductScreen()
+            EditProductScreen.routeName: (ctx) => EditProductScreen(),
+            UserProfileScreen.routeName: (ctx) => UserProfileScreen()
           },
         ));
   }
