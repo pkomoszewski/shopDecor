@@ -22,7 +22,7 @@ class _TabsScreenState extends State<TabsScreen> {
     _pages = [
       {
         'page': ProductScreen(showFavorite),
-        'title': 'Products',
+        'title': 'Produkty',
       },
       {
         'page': CategoryScreen(),
